@@ -1,0 +1,74 @@
+// АНИМАЦИЯ ДЛЯ БУРГЕР МЕНЮ 
+@keyframes bottom-close {
+    0% {
+        top: -10px;
+    }
+    50% {
+        top: 0px;
+    }
+    0%,
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes bottom-open {
+    0% {
+        transform: rotate(45deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    0%,
+    50% {
+        top: 0px;
+    }
+    90% {
+        transform: rotate(0deg);
+        top: 15px;
+    }
+    100% {
+        transform: rotate(0deg);
+        top: 10px;
+    }
+}
+
+@keyframes top-close {
+    0% {
+        top: -10px;
+    }
+    50% {
+        top: 0px;
+    }
+    0%,
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes top-open {
+    0% {
+        transform: rotate(-45deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    0%,
+    50% {
+        top: 0px;
+    }
+    90% {
+        transform: rotate(0deg);
+        top: -15px;
+    }
+    100% {
+        transform: rotate(0deg);
+        top: -10px;
+    }
+}

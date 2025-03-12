@@ -1,0 +1,90 @@
+/* ПОДКЛЮЧЕНИЕ ШРИФТОВ */
+// @font-face {
+//     font-family: "Arial Regular";
+//     src: local("Arial Regular"),
+//         url("../fonts/Arial_Regular/ArialMT.woff2") format("woff2"),
+//         url("../fonts/Arial_Regular/ArialMT.woff") format("woff");
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: swap;
+// }
+// @font-face {
+//     font-family: "Inter Regular";
+//     src: local("Inter Regular"),
+//         url("../fonts/Inter_Regular/Inter-Regular.woff2") format("woff2"),
+//         url("../fonts/Inter_Regular/Inter-Regular.woff") format("woff");
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+/* --------------------------------------------------------- */
+
+/* БАЗОВЫЕ СТИЛИ */
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    /* overflow-x: hidden; */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+:root {
+    --container-width: 1500px;
+    --container-padding: 30px;
+}
+
+.page {
+    min-width: 320px;
+    padding-top: 131px; // Отступ от фиксированного меню
+
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: $txt-grey;
+    /* overflow-x: hidden; */
+}
+
+/* --------------------------------------------------------- */
+
+/* ОСНОВНЫЕ СТИЛИ ДЛЯ ОБЩИХ ЭЛЕМЕНТОВ */
+
+.container {
+    max-width: var(--container-width);
+    width: 100%;
+    padding: 0 var(--container-padding);
+    margin: 0 auto;
+}
+
+.section-descr {
+}
+
+.section-offset {
+}
+
+.stop-scroll {
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------- */
+
+.hide-block {
+    display: none !important;
+}
+
+.no-scroll {
+    overflow-y: hidden;
+}

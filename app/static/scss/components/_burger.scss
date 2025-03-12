@@ -1,0 +1,130 @@
+.hamburger {
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    cursor: pointer;
+
+    transition: 250ms;
+
+    &.closed {
+        .hamburger2 {
+            background-color: transparent;
+            box-shadow: none;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0px;
+
+                width: 30px;
+                height: 3px;
+                background-color: $color-white;
+
+                transform: rotate(45deg);
+                animation: 250ms bottom-close forwards;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0px;
+
+                width: 30px;
+                height: 3px;
+                background-color: $color-white;
+
+                transform: rotate(-45deg);
+                animation: 250ms top-close forwards;
+            }
+        }
+    }
+}
+
+.hamburger2 {
+    position: relative;
+
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+    background-color: $color-white;
+
+    transition: 250ms;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+
+        width: 30px;
+        height: 3px;
+        border-radius: inherit;
+
+        background-color: inherit;
+        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+
+        transform-origin: center;
+        transition: inherit;
+        animation: 250ms bottom-open forwards;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+
+        width: 30px;
+        height: 3px;
+        border-radius: inherit;
+
+        background-color: $color-white;
+        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+
+        transform-origin: center;
+        animation: 250ms top-open forwards;
+    }
+}
+
+
+@include media(1024px) {
+    .hamburger {
+        display: flex;
+        z-index: 2;
+    }
+}
+
+@include media(768px) {
+    .hamburger {
+        width: 24px;
+        height: 21px;
+
+        &.closed {
+            .hamburger2 {
+                width: 24px;
+
+                &::before {
+                    width: 24px;
+                }
+                &::after {
+                    width: 24px;
+                }
+            }
+        }
+
+        .hamburger2 {
+            width: 24px;
+
+            &::before {
+                width: 24px;
+            }
+            &::after {
+                width: 24px;
+            }
+        }
+    }
+}

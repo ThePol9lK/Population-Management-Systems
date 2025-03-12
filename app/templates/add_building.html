@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Добавить здание и помещения</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      <label for="name">Наименование здания</label>
+      {{ form.name(class="form-control", id="name") }}
+    </div>
+
+    <div class="form-group">
+      <label for="num_floors">Количество этажей</label>
+      {{ form.num_floors(class="form-control", id="num_floors") }}
+    </div>
+
+    <div class="form-group">
+      <label for="num_rooms_per_floor">Количество комнат на этаже</label>
+      {{ form.num_rooms_per_floor(class="form-control", id="num_rooms_per_floor") }}
+    </div>
+
+    <div class="form-group">
+      <label for="num_beds_per_room">Количество койок в комнате</label>
+      {{ form.num_beds_per_room(class="form-control", id="num_beds_per_room") }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ form.submit }}</button>
+  </form>
+{% endblock %}
