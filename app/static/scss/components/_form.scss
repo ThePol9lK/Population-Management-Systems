@@ -1,0 +1,62 @@
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, 420px));
+    justify-content: center;
+    gap: 25px;
+
+    @include media(768px) {
+        gap: 15px;
+    }
+    @include media(480px) {
+        grid-template-columns: minmax(auto, 420px);
+        gap: 5px;
+    }
+
+    :nth-child(3) {
+        grid-column: 1 / 3;
+        @include media(480px) {
+            grid-column: 1/2;
+        }
+    }
+
+    &__input,
+    &__textarea {
+        background-color: $background-form;
+        color: $txt-white;
+
+        & + label {
+            color: $txt-white;
+            background-color: $background-form;
+        }
+
+        &:focus + label,
+        &:not(:placeholder-shown) + label {
+            color: $txt-white !important;
+            background: linear-gradient(
+                180deg,
+                rgba(93, 112, 169, 0) 50%,
+                rgba(39, 58, 113, 1) 50%
+            );
+        }
+    }
+
+    &__input {
+        width: 100%;
+    }
+
+    &__textarea {
+        width: 100%;
+        height: min(200px, 30vh);
+
+        & + label {
+            top: 30px;
+        }
+    }
+
+    &__btn {
+        grid-column: 1 / 3;
+        @include media(480px) {
+            grid-column: 1 / 2;
+        }
+    }
+}

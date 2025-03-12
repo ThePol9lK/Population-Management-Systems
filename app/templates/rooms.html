@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Список помещений</h2>
+    <div class="accordion">
+        {% for building in buildings %}
+        <div class="accordion-item">
+            <button class="accordion-header">{{ building.name }}</button>
+            <div class="accordion-content">
+                <div class="bridge">
+                    <div class="bridge__floors-buttons">
+                        {% for floor in building.floors %}
+                        <button class="bridge__floors-button btn btn-white btn-animate button">
+                            Этаж {{ floor.number }}
+                        </button>
+                        {% endfor %}
+                    </div>
+
+                    {% for floor in building.floors %}
+                    <div class="bridge__floor-wrapper">
+                        <h2 class="bridge__floor-title">Этаж {{ floor.number }}</h2>
+                        <div class="floor">
+                            {% for room in floor.rooms %}
+                            <div class="room">
+                                {% for bed in room.beds %}
+                                <div
+                                    class="pillow {{ 'occupied' if bed.is_occupied else 'available' }}"
+                                    onclick="openCheckInModal('{{ bed.id }}', '{{ room.number }}', '{{ floor.number }}', '{{ building.name }}')">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Модальное окно для бронирования -->
+    <div class="modal fade" id="checkInModal" tabindex="-1" aria-labelledby="checkInModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkInModalLabel">Забронировать койку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <form id="checkInForm" method="post" action="{{ url_for('auth.check_in_ajax') }}">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="employee" class="form-label">Сотрудник</label>
+                            <select id="employee" name="employee" class="form-select">
+                                <!-- Список сотрудников будет заполняться динамически -->
+                                {% for employee in employees %}
+                                    <option value="{{ employee.id }}">{{ employee.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bed" class="form-label">Койка</label>
+                            <input type="text" id="bed" name="bed" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="check_in_date" class="form-label">Дата заселения</label>
+                            <input type="date" id="check_in_date" name="check_in_date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="check_out_date" class="form-label">Дата выезда</label>
+                            <input type="date" id="check_out_date" name="check_out_date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Подтвердить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('checkInForm').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Отключаем стандартное поведение формы
+
+        const form = event.target;
+        const formData = {
+            employee: form.employee.value,
+            bed: form.bed.value.replace('Койка ', ''), // Убираем текст "Койка"
+            check_in_date: form.check_in_date.value,
+            check_out_date: form.check_out_date.value,
+        };
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message || 'Успешно!');
+                location.reload(); // Обновляем страницу после успешного ответа
+            } else {
+                alert(result.message || 'Произошла ошибка');
+            }
+        } catch (error) {
+            console.error('Ошибка отправки формы:', error);
+            alert('Произошла ошибка при отправке данных');
+        }
+    });
+</script>
+
+{% endblock %}
